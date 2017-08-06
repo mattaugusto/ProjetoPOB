@@ -1,12 +1,14 @@
 package fachada;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import daojpa.DAO;
 import daojpa.DAOPessoa;
 import daojpa.DAOParticipante;
 import daojpa.DAOPalestrante;
 import daojpa.DAOTitulacao;
-//import daojpa.DAOEvento;
+import daojpa.DAOEvento;
 import daojpa.DAOPalestra;
 import modelo.Pessoa;
 import modelo.Titulacao;
@@ -14,7 +16,7 @@ import modelo.Palestrante;
 import modelo.Participante;
 import modelo.Palestrante;
 import modelo.Titulacao;
-//import modelo.Evento;
+import modelo.Evento;
 import modelo.Palestra;
 
 /**********************************
@@ -29,7 +31,7 @@ public class Fachada {
 	private static DAOParticipante daoparticipante= new DAOParticipante() ;
 	private static DAOPalestrante daopalestrante = new DAOPalestrante();
 	private static DAOTitulacao daotitulacao = new DAOTitulacao() ;
-//	private static DAOEvento daoevento = new DAOEvento();
+	private static DAOEvento daoevento = new DAOEvento();
 	private static DAOPalestra daopalestra = new DAOPalestra() ;
 
 
@@ -134,6 +136,54 @@ public class Fachada {
 		
 		DAO.efetivar();
 		return p;
+	}
+	
+	public static Evento cadastrarEvento(String nome, String inicio, String fim) throws Exception{
+		DAO.iniciar();
+		
+		Evento e = daoevento.localizarPeloNome(nome);
+		
+		if(e!= null){
+			DAO.cancelar();
+			throw new Exception("Evento já cadastrado");
+		}
+		SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
+		
+		Date inicio_data = sdf.parse(inicio);
+		Date fim_data = sdf.parse(fim);
+		
+		e = new Evento(nome, inicio_data, fim_data);
+		daoevento.persistir(e);
+		
+		DAO.efetivar();
+		return e;
+	}
+	
+	public static void adicionarParticipanteEvento(String evento, String cpf) throws Exception{
+		DAO.iniciar();
+		
+		Evento e = daoevento.localizarPeloNome(evento);
+		if(e == null) throw new Exception("Evento não cadastrado! " + evento);
+		
+		Participante p = daoparticipante.localizarPeloCPF(cpf);
+		if(p == null) throw new Exception("Participante não cadastrado! " + cpf);
+		
+		e.adicionarParticipante(p);
+		daoevento.atualizar(e);
+		DAO.efetivar();
+	}
+	public static void adicionarPalestraEvento(String evento, String titulo) throws Exception{
+		DAO.iniciar();
+		
+		Evento e = daoevento.localizarPeloNome(evento);
+		if(e == null) throw new Exception("Evento não cadastrado! " + evento);
+		
+		Palestra p = daopalestra.localizarPeloTitulo(titulo);
+		if(p == null) throw new Exception("Palestra não cadastrada! " + titulo);
+		
+		e.adicionarPalestra(p);
+		daoevento.atualizar(e);
+		DAO.efetivar();
 	}
 }
 	

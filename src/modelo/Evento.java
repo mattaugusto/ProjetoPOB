@@ -26,7 +26,21 @@ public class Evento {
 	List<Palestra> palestras; // Relacionamento Palestra -> Evento
 	
 	@ManyToMany
-	List<Participante> participantes;
+	List<Participante> participantes; // Relacionamento Participante -> Evento
+	public Evento(String nome, Date inicio, Date fim){
+		this.nome = nome;
+		this.inicio = inicio;
+		this.fim = fim;
+	}
 	public Evento(){}
 	
+	public void adicionarParticipante(Participante p){
+		this.participantes.add(p);
+		p.eventos.add(this);
+	}
+	
+	public void adicionarPalestra(Palestra p){
+		this.palestras.add(p);
+		p.eventos.add(this);
+	}
 }

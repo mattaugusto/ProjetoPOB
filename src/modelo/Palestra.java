@@ -21,8 +21,8 @@ public class Palestra {
 	@ManyToOne // Relacionamento Palestrante -> Palestras
 	private Palestrante palestrante;
 	
-//	@ManyToMany(mappedBy = "palestras") // Relacionamento Palestra -> Evento
-//	List<Evento> eventos;
+	@ManyToMany(mappedBy = "palestras") // Relacionamento Palestra -> Evento
+	List<Evento> eventos;
 	public Palestra(String titulo, String descricao, int duracao, Palestrante palestrante){
 		this.titulo = titulo;
 		this.descricao = descricao;
