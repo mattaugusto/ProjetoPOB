@@ -1,21 +1,16 @@
 package fachada;
-import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import daojpa.DAO;
-import daojpa.DAOPessoa;
 import daojpa.DAOParticipante;
 import daojpa.DAOPalestrante;
 import daojpa.DAOTitulacao;
 import daojpa.DAOEvento;
 import daojpa.DAOPalestra;
-import modelo.Pessoa;
 import modelo.Titulacao;
 import modelo.Palestrante;
 import modelo.Participante;
-import modelo.Palestrante;
-import modelo.Titulacao;
 import modelo.Evento;
 import modelo.Palestra;
 
@@ -27,7 +22,6 @@ import modelo.Palestra;
  */
 
 public class Fachada {
-	private static DAOPessoa daopessoa = new DAOPessoa();
 	private static DAOParticipante daoparticipante= new DAOParticipante() ;
 	private static DAOPalestrante daopalestrante = new DAOPalestrante();
 	private static DAOTitulacao daotitulacao = new DAOTitulacao() ;
@@ -49,7 +43,7 @@ public class Fachada {
 	    Participante p = daoparticipante.localizarPeloCPF(cpf);
 	    if(p!= null){
 	    	DAO.cancelar();
-	    	throw new Exception("CPF já cadastrado!");
+	    	throw new Exception("CPF jï¿½ cadastrado!");
 	    }
 	    if(nome == null){
 			DAO.cancelar();
@@ -80,7 +74,7 @@ public class Fachada {
 	    Palestrante p = daopalestrante.localizarPeloCPF(cpf);
 	    if(p!= null){
 	    	DAO.cancelar();
-	    	throw new Exception("CPF já cadastrado!");
+	    	throw new Exception("CPF jï¿½ cadastrado!");
 	    }
 	    if(nome == null){
 			DAO.cancelar();
@@ -112,7 +106,7 @@ public class Fachada {
 		
 		if(t!= null){
 			DAO.cancelar();
-			throw new Exception("Titulação já cadastrada!");
+			throw new Exception("Titulaï¿½ï¿½o jï¿½ cadastrada!");
 		}
 		t = new Titulacao(titulo);
 		daotitulacao.persistir(t);
@@ -128,7 +122,7 @@ public class Fachada {
 		
 		if(p!= null){
 			DAO.cancelar();
-			throw new Exception("Palestra já cadastrada");
+			throw new Exception("Palestra jï¿½ cadastrada");
 		}
 		
 		p = new Palestra(titulo, descricao, duracao, palestrante);
@@ -145,7 +139,7 @@ public class Fachada {
 		
 		if(e!= null){
 			DAO.cancelar();
-			throw new Exception("Evento já cadastrado");
+			throw new Exception("Evento jï¿½ cadastrado");
 		}
 		SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -163,10 +157,10 @@ public class Fachada {
 		DAO.iniciar();
 		
 		Evento e = daoevento.localizarPeloNome(evento);
-		if(e == null) throw new Exception("Evento não cadastrado! " + evento);
+		if(e == null) throw new Exception("Evento nï¿½o cadastrado! " + evento);
 		
 		Participante p = daoparticipante.localizarPeloCPF(cpf);
-		if(p == null) throw new Exception("Participante não cadastrado! " + cpf);
+		if(p == null) throw new Exception("Participante nï¿½o cadastrado! " + cpf);
 		
 		e.adicionarParticipante(p);
 		daoevento.atualizar(e);
@@ -176,10 +170,10 @@ public class Fachada {
 		DAO.iniciar();
 		
 		Evento e = daoevento.localizarPeloNome(evento);
-		if(e == null) throw new Exception("Evento não cadastrado! " + evento);
+		if(e == null) throw new Exception("Evento nï¿½o cadastrado! " + evento);
 		
 		Palestra p = daopalestra.localizarPeloTitulo(titulo);
-		if(p == null) throw new Exception("Palestra não cadastrada! " + titulo);
+		if(p == null) throw new Exception("Palestra nï¿½o cadastrada! " + titulo);
 		
 		e.adicionarPalestra(p);
 		daoevento.atualizar(e);
