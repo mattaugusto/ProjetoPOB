@@ -11,26 +11,26 @@ import javax.persistence.OneToMany;
 @Entity
 public class Titulacao
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
 
-	private String titulo;
+    private String titulo;
 
-	@OneToMany(mappedBy = "tipoTitulacao")
-	private List<Palestrante> palestrantes;
+    @OneToMany(mappedBy = "tipoTitulacao")
+    private List<Palestrante> palestrantes;
 
-	public Titulacao(String titulo)
-	{
-		this.titulo = titulo;
-	}
+    public Titulacao(String titulo)
+    {
+        this.titulo = titulo;
+    }
 
-	public Titulacao()
-	{
-	}
-	
-	public String getTitulo()
-	{
-		return this.titulo;
-	}
+    public Titulacao()
+    {
+    }
+
+    public String getTitulo()
+    {
+        return this.titulo;
+    }
 }

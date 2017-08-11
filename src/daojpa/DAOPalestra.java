@@ -12,8 +12,8 @@ public class DAOPalestra extends DAO<Palestra>
         try {
             Query q = manager.createQuery("select p from Palestra p where p.titulo= '" + titulo +"'");
             return (Palestra) q.getSingleResult();
-		} catch (NoResultException e) {
+        } catch (NoResultException e) {
             return null;
-		}
-	}
+        }
+    }
 }

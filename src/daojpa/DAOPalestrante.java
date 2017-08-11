@@ -16,14 +16,14 @@ public class DAOPalestrante extends DAO<Palestrante>
             return null;
         }
     }
-    
+
     public boolean isEmailDisponivel(String email)
     {
-    	try {
+        try {
             Query q = manager.createQuery("select p from Palestrante p where p.email= '" + email +"'");
             q.getSingleResult();
             return false;
-    	} catch (NoResultException e) {
+        } catch (NoResultException e) {
             return true;
         }
     }

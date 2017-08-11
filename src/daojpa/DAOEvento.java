@@ -12,8 +12,8 @@ public class DAOEvento extends DAO<Evento>
         try {
             Query q = manager.createQuery("select e from Evento e where e.nome= '" + nome +"'");
             return (Evento) q.getSingleResult();
-		} catch(NoResultException e) {
-			return null;
-		}
-	}
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
 }
