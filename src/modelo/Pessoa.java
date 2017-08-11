@@ -14,8 +14,11 @@ public abstract class Pessoa
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+
 	private String nome;
+
 	private String cpf;
+
 	private String email;
 	
 	public Pessoa(String nome, String cpf, String email)
@@ -27,5 +30,20 @@ public abstract class Pessoa
 
 	public Pessoa()
 	{
+	}
+	
+	public String getNome()
+	{
+		return this.nome;
+	}
+	
+	public String getCpf()
+	{
+		return this.cpf;
+	}
+	
+	public String getEmail()
+	{
+		return this.email;
 	}
 }

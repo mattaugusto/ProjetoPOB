@@ -2,7 +2,8 @@ package daojpa;
 
 import java.util.List;
 
-public interface DAOInterface<T> {
+public interface DAOInterface<T>
+{
 	public void persistir(T obj);
 	public T atualizar(T obj);
 	public void apagar(T obj) ;

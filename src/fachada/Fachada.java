@@ -1,4 +1,12 @@
+/**
+ * IFPB - Curso Superior de Tec. em Sist. para Internet
+ * Prof. Fausto Maranhão Ayres
+ * Persistencia de Objetos
+ * Alunos: Joel e Matheus
+ *
+ */
 package fachada;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,223 +22,174 @@ import modelo.Participante;
 import modelo.Evento;
 import modelo.Palestra;
 
-/**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Persistencia de Objetos
- * Prof. Fausto Ayres
- *
- */
-
-public class Fachada {
-	private static DAOParticipante daoparticipante= new DAOParticipante() ;
+public class Fachada 
+{
+	private static DAOParticipante daoparticipante= new DAOParticipante();
 	private static DAOPalestrante daopalestrante = new DAOPalestrante();
-	private static DAOTitulacao daotitulacao = new DAOTitulacao() ;
+	private static DAOTitulacao daotitulacao = new DAOTitulacao();
 	private static DAOEvento daoevento = new DAOEvento();
-	private static DAOPalestra daopalestra = new DAOPalestra() ;
+	private static DAOPalestra daopalestra = new DAOPalestra();
 
-
-	public static void inicializar(){
+	public static void inicializar()
+	{
 		DAO.abrir();
 	}
-	
-	public static void finalizar(){
+
+	public static void finalizar()
+	{
 		DAO.fechar();
 	}
-	
-	public static Participante cadastrarParticipante(String nome, String cpf, String email, String instituicao) throws Exception{
+
+	public static Participante cadastrarParticipante(
+			String nome,
+			String cpf,
+			String email,
+			String instituicao) throws Exception
+	{
 		DAO.iniciar();
-		
 	    Participante p = daoparticipante.localizarPeloCPF(cpf);
-	    if(p!= null){
-	    	DAO.cancelar();
-	    	throw new Exception("CPF jï¿½ cadastrado!");
+	    if (p!= null) {
+	    	throw new Exception("CPF já cadastrado!");
 	    }
-	    if(nome == null){
-			DAO.cancelar();
+	    if (nome == null) {
 			throw new Exception("Nome vazio!");
 		}
-		if(cpf == null){
-			DAO.cancelar();
+		if (cpf == null) {
 			throw new Exception("CPF vazio!");
 		}
-		if(email == null){
-			DAO.cancelar();
+		if (email == null) {
 			throw new Exception("Email vazio!");
 		}
-		if(instituicao == null){
-			DAO.cancelar();
+		if (instituicao == null) {
 			throw new Exception("Instituicao vazio!");
 		}
 		p = new Participante(nome, cpf, email, instituicao);
 		daoparticipante.persistir(p);
-			
 		DAO.efetivar();
 		return p;
 	}
 	
-	public static Palestrante cadastrarPalestrante(String nome, String cpf, String email, Titulacao tipoTitulacao) throws Exception{
+	public static Palestrante cadastrarPalestrante(
+			String nome,
+			String cpf,
+			String email,
+			String tipoTitulacao) throws Exception
+	{
 		DAO.iniciar();
-		
 	    Palestrante p = daopalestrante.localizarPeloCPF(cpf);
-	    if(p!= null){
-	    	DAO.cancelar();
-	    	throw new Exception("CPF jï¿½ cadastrado!");
+	    if (p!= null) {
+	    	throw new Exception("CPF já cadastrado!");
 	    }
-	    if(nome == null){
-			DAO.cancelar();
+	    if (nome == null) {
 			throw new Exception("Nome vazio!");
 		}
-		if(cpf == null){
-			DAO.cancelar();
+		if (cpf == null) {
 			throw new Exception("CPF vazio!");
 		}
-		if(email == null){
-			DAO.cancelar();
+		if (email == null) {
 			throw new Exception("Email vazio!");
 		}
-		if(tipoTitulacao == null){
-			DAO.cancelar();
-			throw new Exception("Instituicao vazio!");
+		if (!daopalestrante.isEmailDisponivel(email)) {
+	    	throw new Exception("E-mail já cadastrado!");
 		}
-		p = new Palestrante(nome, cpf, email, tipoTitulacao);
+		if (tipoTitulacao.isEmpty()) {
+			throw new Exception("Titulação invalida!");
+		}
+		Titulacao t = daotitulacao.localizarPeloTitulo(tipoTitulacao);
+		if (t == null) {
+			throw new Exception("Titulação não cadastrada");
+		}
+		p = new Palestrante(nome, cpf, email, t);
 		daopalestrante.persistir(p);
-			
 		DAO.efetivar();
 		return p;
 	}
-	
-	public static Titulacao cadastrarTitulacao(String titulo) throws Exception{
+
+	public static Titulacao cadastrarTitulacao(String titulo) throws Exception
+	{
 		DAO.iniciar();
-		
 		Titulacao t = daotitulacao.localizarPeloTitulo(titulo);
-		
-		if(t!= null){
-			DAO.cancelar();
-			throw new Exception("Titulaï¿½ï¿½o jï¿½ cadastrada!");
+		if (t!= null) {
+			throw new Exception("Titulação já cadastrada!");
 		}
 		t = new Titulacao(titulo);
 		daotitulacao.persistir(t);
-		
 		DAO.efetivar();
 		return t;
 	}
-	
-	public static Palestra cadastrarPalestra(String titulo, String descricao, int duracao, Palestrante palestrante) throws Exception{
+
+	public static Palestra cadastrarPalestra(
+			String titulo,
+			String descricao,
+			String duracao,
+			String cpf) throws Exception
+	{
 		DAO.iniciar();
-		
 		Palestra p = daopalestra.localizarPeloTitulo(titulo);
-		
-		if(p!= null){
-			DAO.cancelar();
-			throw new Exception("Palestra jï¿½ cadastrada");
+		if (p!= null) {
+			throw new Exception("Palestra já cadastrada");
 		}
-		
+		Palestrante palestrante = daopalestrante.localizarPeloCPF(cpf);
+		if (palestrante == null) {
+			throw new Exception("Palestrante não cadastrado");
+		}
 		p = new Palestra(titulo, descricao, duracao, palestrante);
 		daopalestra.persistir(p);
-		
 		DAO.efetivar();
 		return p;
 	}
-	
-	public static Evento cadastrarEvento(String nome, String inicio, String fim) throws Exception{
-		DAO.iniciar();
-		
+
+	public static Evento cadastrarEvento(
+			String nome,
+			String inicio,
+			String fim) throws Exception
+	{
+		DAO.iniciar();		
 		Evento e = daoevento.localizarPeloNome(nome);
-		
-		if(e!= null){
-			DAO.cancelar();
-			throw new Exception("Evento jï¿½ cadastrado");
+		if (e!= null) {
+			throw new Exception("Evento já cadastrado");
 		}
 		SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
-		
 		Date inicio_data = sdf.parse(inicio);
 		Date fim_data = sdf.parse(fim);
-		
 		e = new Evento(nome, inicio_data, fim_data);
 		daoevento.persistir(e);
-		
 		DAO.efetivar();
 		return e;
 	}
 	
-	public static void adicionarParticipanteEvento(String evento, String cpf) throws Exception{
+	public static void adicionarParticipanteEvento(String evento, String cpf) throws Exception
+	{
 		DAO.iniciar();
-		
 		Evento e = daoevento.localizarPeloNome(evento);
-		if(e == null) throw new Exception("Evento nï¿½o cadastrado! " + evento);
-		
+		if (e == null) {
+			throw new Exception("Evento não cadastrado! " + evento);
+		}
 		Participante p = daoparticipante.localizarPeloCPF(cpf);
-		if(p == null) throw new Exception("Participante nï¿½o cadastrado! " + cpf);
-		
+		if (p == null) {
+			throw new Exception("Participante não cadastrado! " + cpf);
+		}
+		if (p.taCadastroEvento(e)) {
+			throw new Exception("Participante já cadastrado no evento!");
+		}
 		e.adicionarParticipante(p);
 		daoevento.atualizar(e);
 		DAO.efetivar();
 	}
-	public static void adicionarPalestraEvento(String evento, String titulo) throws Exception{
+
+	public static void adicionarPalestraEvento(String evento, String titulo) throws Exception
+	{
 		DAO.iniciar();
-		
 		Evento e = daoevento.localizarPeloNome(evento);
-		if(e == null) throw new Exception("Evento nï¿½o cadastrado! " + evento);
-		
+		if (e == null) {
+			throw new Exception("Evento não cadastrado! " + evento);
+		}
 		Palestra p = daopalestra.localizarPeloTitulo(titulo);
-		if(p == null) throw new Exception("Palestra nï¿½o cadastrada! " + titulo);
-		
+		if (p == null) {
+			throw new Exception("Palestra não cadastrada! " + titulo);
+		}
 		e.adicionarPalestra(p);
 		daoevento.atualizar(e);
 		DAO.efetivar();
 	}
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-

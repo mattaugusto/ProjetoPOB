@@ -9,15 +9,21 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name="id")
-public class Palestrante extends Pessoa{
-	@ManyToOne // Relacionamento Palestrante -> Titula��o
+public class Palestrante extends Pessoa
+{
+	@ManyToOne
 	private Titulacao tipoTitulacao;
+
+	@OneToMany(mappedBy = "palestrante")
+	private List<Palestra> palestras;
 	
-	public Palestrante(String nome, String cpf, String email, Titulacao tipoTitulacao){
+	public Palestrante(String nome, String cpf, String email, Titulacao tipoTitulacao)
+	{
 		super(nome, cpf, email);
 		this.tipoTitulacao = tipoTitulacao;
 	}
-	public Palestrante(){}
-	@OneToMany(mappedBy = "palestrante") // Relacionamento Palestrante -> Palestras
-	private List<Palestra> palestras;
+
+	public Palestrante()
+	{
+	}
 }

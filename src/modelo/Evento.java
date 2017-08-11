@@ -12,35 +12,51 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Evento {
+public class Evento
+{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String nome;
+
+    private String nome;
+
 	@Temporal(TemporalType.DATE)
 	private Date inicio = new Date();
+
 	@Temporal(TemporalType.DATE)
 	private Date fim = new Date();
-	
+
 	@ManyToMany
-	List<Palestra> palestras; // Relacionamento Palestra -> Evento
-	
+	List<Palestra> palestras;
+
 	@ManyToMany
-	List<Participante> participantes; // Relacionamento Participante -> Evento
-	public Evento(String nome, Date inicio, Date fim){
+	List<Participante> participantes;
+
+	public Evento(String nome, Date inicio, Date fim)
+	{
 		this.nome = nome;
 		this.inicio = inicio;
 		this.fim = fim;
 	}
-	public Evento(){}
-	
-	public void adicionarParticipante(Participante p){
+
+	public Evento()
+	{
+	}
+
+	public void adicionarParticipante(Participante p)
+	{
 		this.participantes.add(p);
 		p.eventos.add(this);
 	}
-	
-	public void adicionarPalestra(Palestra p){
+
+	public void adicionarPalestra(Palestra p)
+	{
 		this.palestras.add(p);
 		p.eventos.add(this);
+	}
+	
+	public String getNome()
+	{
+		return this.nome;
 	}
 }
