@@ -10,7 +10,8 @@ public class DAOEvento extends DAO<Evento>
     public Evento localizarPeloNome(String nome)
     {
         try {
-            Query q = manager.createQuery("select e from Evento e where e.nome= '" + nome +"'");
+            Query q = manager.createQuery("select e from Evento e where e.nome = :x");
+            q.setParameter("x", nome);
             return (Evento) q.getSingleResult();
         } catch(NoResultException e) {
             return null;

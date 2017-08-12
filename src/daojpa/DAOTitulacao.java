@@ -10,7 +10,8 @@ public class DAOTitulacao extends DAO<Titulacao>
     public Titulacao localizarPeloTitulo(String titulo)
     {
         try {
-            Query q = manager.createQuery("select t from Titulacao t where t.titulo= '" + titulo +"'");
+            Query q = manager.createQuery("select t from Titulacao t where t.titulo = :x");
+            q.setParameter("x", titulo);
             return (Titulacao) q.getSingleResult();
         } catch(NoResultException e) {
             return null;

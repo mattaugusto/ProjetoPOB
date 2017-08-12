@@ -10,7 +10,8 @@ public class DAOParticipante extends DAO<Participante>
     public Participante localizarPeloCPF(String cpf)
     {
         try {
-            Query q = manager.createQuery("select p from Participante p where p.cpf= '" + cpf +"'");
+            Query q = manager.createQuery("select p from Participante p where p.cpf= :x");
+            q.setParameter("x", cpf);
             return (Participante) q.getSingleResult();
         } catch(NoResultException e) {
             return null;

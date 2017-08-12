@@ -10,7 +10,8 @@ public class DAOPalestra extends DAO<Palestra>
     public Palestra localizarPeloTitulo(String titulo)
     {
         try {
-            Query q = manager.createQuery("select p from Palestra p where p.titulo= '" + titulo +"'");
+            Query q = manager.createQuery("select p from Palestra p where p.titulo= :x");
+            q.setParameter("x", titulo);
             return (Palestra) q.getSingleResult();
         } catch (NoResultException e) {
             return null;

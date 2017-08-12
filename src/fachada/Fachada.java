@@ -9,6 +9,7 @@ package fachada;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import daojpa.DAO;
 import daojpa.DAOParticipante;
@@ -191,5 +192,89 @@ public class Fachada
         e.adicionarPalestra(p);
         daoevento.atualizar(e);
         DAO.efetivar();
+    }
+
+    public static void apagarParticipante(String cpf) throws Exception
+    {
+        DAO.iniciar();
+        Participante p = daoparticipante.localizarPeloCPF(cpf);
+        if (p == null) {
+            throw new Exception("Participante não cadastrado");
+        }
+        daoparticipante.apagar(p);
+        DAO.efetivar();
+    }
+
+    public static void apagarEvento(String nome) throws Exception
+    {
+        DAO.iniciar();
+        Evento e = daoevento.localizarPeloNome(nome);
+        if (e == null) {
+            throw new Exception("Evento não cadastrado");
+        }
+        daoevento.apagar(e);
+        DAO.efetivar();
+    }
+
+    public static void apagarPalestrante(String cpf) throws Exception
+    {
+        DAO.iniciar();
+        Palestrante p = daopalestrante.localizarPeloCPF(cpf);
+        if (p == null) {
+            throw new Exception("Palestrante não cadastrado");
+        }
+        daopalestrante.apagar(p);
+        DAO.efetivar();
+    }
+
+    public static void apagarPalestra(String titulo) throws Exception
+    {
+        DAO.iniciar();
+        Palestra p = daopalestra.localizarPeloTitulo(titulo);
+        if (p == null) {
+            throw new Exception("Palestra não cadastrada");
+        }
+        daopalestra.apagar(p);
+        DAO.efetivar();
+    }
+
+    public static void apagarTitulacao(String titulo) throws Exception
+    {
+        DAO.iniciar();
+        Titulacao t = daotitulacao.localizarPeloTitulo(titulo);
+        if (t == null) {
+            throw new Exception("Titulação não cadastrada");
+        }
+        daotitulacao.apagar(t);
+        DAO.efetivar();
+    }
+
+    public static void atualizarTitulacaoDoPalestrante(String cpf, String titulo) throws Exception
+    {
+        DAO.iniciar();
+        Palestrante p = daopalestrante.localizarPeloCPF(cpf);
+        if (p == null) {
+            throw new Exception("Palestrante não cadastrado");
+        }
+        Titulacao t = daotitulacao.localizarPeloTitulo(titulo);
+        if (t == null) {
+            throw new Exception("Titulação não cadastrada");
+        }
+        p.setTitulacao(t);
+        daopalestrante.atualizar(p);
+        DAO.efetivar();
+    }
+
+    public static String listarEventos()
+    {
+        List<Evento> eventos = daoevento.listar();
+        String texto = "Listagem de eventos: \n";
+        if (eventos.isEmpty())
+            return texto += "nenhum evento cadastrado";
+        
+        for (Evento evento : eventos) {
+            texto += "\n" + evento;
+        }
+        return texto;
     }
 }

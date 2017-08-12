@@ -59,4 +59,10 @@ public class Evento
     {
         return this.nome;
     }
+
+    @Override
+    public String toString() {
+        return "Evento [id=" + id + ", nome=" + nome + ", inicio=" + inicio + ", fim=" + fim + "]";
+    }
+    
 }

@@ -26,4 +26,9 @@ public class Palestrante extends Pessoa
     public Palestrante()
     {
     }
+
+    public void setTitulacao(Titulacao t)
+    {
+        this.tipoTitulacao = t;
+    }
 }
