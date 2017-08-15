@@ -54,4 +54,12 @@ public class Palestra
     {
         return this.duracao;
     }
+
+	@Override
+	public String toString() {
+		return "Palestra [id=" + id + ", titulo=" + titulo + ", descricao="
+				+ descricao + ", duracao=" + duracao + ", palestrante="
+				+ palestrante + "]";
+	}
+    
 }

@@ -1,5 +1,7 @@
 package daojpa;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -28,5 +30,17 @@ public class DAOPalestrante extends DAO<Palestrante>
         } catch (NoResultException e) {
             return true;
         }
+    }
+
+    public List<Palestrante> consultarPalestrantesSemPalestras()
+    {
+        Query q = manager.createQuery("select p from Palestrante p where p.palestras is empty");
+        return q.getResultList();
+    }
+
+    public List<Palestrante> consultarPalestrantesSemTitulo()
+    {
+        Query q = manager.createQuery("select p from Palestrante p where p.tipoTitulacao is NULL");
+        return q.getResultList();
     }
 }

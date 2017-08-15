@@ -269,12 +269,84 @@ public class Fachada
     {
         List<Evento> eventos = daoevento.listar();
         String texto = "Listagem de eventos: \n";
-        if (eventos.isEmpty())
+        if (eventos.isEmpty()) {
             return texto += "nenhum evento cadastrado";
-        
+        }
         for (Evento evento : eventos) {
             texto += "\n" + evento;
         }
         return texto;
+    }
+
+    public static String listarPalestras()
+    {
+        List<Palestra> palestras = daopalestra.listar();
+        String texto = "Listagem de palestras: \n";
+        if (palestras.isEmpty()) {
+            return texto += "nenhuma palestra cadastrada";
+        }
+        for (Palestra palestra : palestras) {
+            texto += "\n " + palestra;
+        }
+        return texto;
+    }
+
+    public static String listarParticipantes()
+    {
+        List<Participante> participantes = daoparticipante.listar();
+        String texto = "Listagem de participantes: \n";
+        if (participantes.isEmpty()) {
+            return texto += "nenhum participante cadastrado";
+        }
+        for (Participante participante : participantes) {
+            texto += "\n " + participante;
+        }
+        return texto;
+    }
+
+    public static String consulta1()
+    {
+        List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesSemPalestras();
+        String texto = "Listagem de palestrantes sem palestras: \n";
+        if (palestrantes.isEmpty()) {
+            return texto += "nenhum palestrante cadastrado sem palestra";
+        }
+        for (Palestrante palestrante : palestrantes) {
+            texto += "\n " + palestrante;
+        }
+        return texto;
+    }
+
+    public static String consulta2()
+    {
+        List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesSemTitulo();
+        String texto = "Listagem de palestrantes sem titulo: \n";
+        if (palestrantes.isEmpty()) {
+            return texto += "nenhum palestrante cadastrado sem titulo";
+        }
+        for (Palestrante palestrante : palestrantes) {
+            texto += "\n " + palestrante;
+        }
+        return texto;
+    }
+    
+    public static String consulta3()
+    {
+    	return null;
+    }
+    
+    public static String consulta4()
+    {
+    	return null;
+    }
+    
+    public static String consulta5()
+    {
+    	return null;
+    }
+    
+    public static String consulta6()
+    {
+    	return null;
     }
 }

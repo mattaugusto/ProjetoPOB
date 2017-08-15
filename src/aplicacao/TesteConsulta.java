@@ -8,6 +8,8 @@ public class TesteConsulta
     {
         Fachada.inicializar();
         try {
+            System.out.println(Fachada.consulta1());
+            System.out.println(Fachada.consulta2());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

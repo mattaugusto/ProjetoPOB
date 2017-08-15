@@ -34,4 +34,14 @@ public class Participante extends Pessoa
     {
         return this.eventos.contains(evento);
     }
+
+	@Override
+	public String toString() {
+		return "Participante [nome="+ this.getNome() 
+				+", instituicao=" + instituicao 
+				+", email=" + this.getEmail()
+				+", cpf=" + this.getCpf()
+				+ "]";
+	}
+    
 }

@@ -43,4 +43,9 @@ public class Titulacao
             p.setTitulacao(null);
         }
     }
+
+	@Override
+	public String toString() {
+		return  titulo;
+	}
 }

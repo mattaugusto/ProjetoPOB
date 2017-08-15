@@ -9,6 +9,8 @@ public class TesteListagem
         Fachada.inicializar();
         try {
             System.out.println(Fachada.listarEventos());
+            System.out.println(Fachada.listarPalestras());
+            System.out.println(Fachada.listarParticipantes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

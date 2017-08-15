@@ -31,4 +31,14 @@ public class Palestrante extends Pessoa
     {
         this.tipoTitulacao = t;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Palestrante [nome="+ this.getNome()
+                +", tipoTitulacao=" + tipoTitulacao
+                +", email=" + this.getEmail()
+                +", cpf=" + this.getCpf()
+                + "]";
+    }
 }
