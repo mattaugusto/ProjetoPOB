@@ -332,12 +332,28 @@ public class Fachada
     
     public static String consulta3()
     {
-    	return null;
+        List<Object[]> totalPorEvento = daoevento.totalParticipantesEvento();
+        String texto = "Listagem de total de participantes no evento: \n";
+        if (totalPorEvento.isEmpty()) {
+            return texto += "nenhum total";
+        }
+        for (Object[] obj : totalPorEvento) {
+        	texto += "\n " + obj[0]+" "+obj[1];
+        }
+        return texto;
     }
     
     public static String consulta4()
     {
-    	return null;
+        List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesPorTitulo("Mestrado");
+        String texto = "Listagem de palestrantes por titulo: \n";
+        if (palestrantes.isEmpty()) {
+            return texto += "nenhum palestrante cadastrado com titulo de mestrado";
+        }
+        for (Palestrante palestrante : palestrantes) {
+            texto += "\n " + palestrante;
+        }
+        return texto;
     }
     
     public static String consulta5()

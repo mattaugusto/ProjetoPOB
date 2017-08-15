@@ -32,15 +32,25 @@ public class DAOPalestrante extends DAO<Palestrante>
         }
     }
 
-    public List<Palestrante> consultarPalestrantesSemPalestras()
+    @SuppressWarnings("unchecked")
+	public List<Palestrante> consultarPalestrantesSemPalestras()
     {
         Query q = manager.createQuery("select p from Palestrante p where p.palestras is empty");
         return q.getResultList();
     }
 
-    public List<Palestrante> consultarPalestrantesSemTitulo()
+    @SuppressWarnings("unchecked")
+	public List<Palestrante> consultarPalestrantesSemTitulo()
     {
         Query q = manager.createQuery("select p from Palestrante p where p.tipoTitulacao is NULL");
+        return q.getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+	public List<Palestrante> consultarPalestrantesPorTitulo(String titulo)
+    {
+        Query q = manager.createQuery("select p from Palestrante p where p.tipoTitulacao.titulo = :x");
+        q.setParameter("x", titulo);
         return q.getResultList();
     }
 }
