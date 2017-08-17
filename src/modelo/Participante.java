@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.MappedSuperclass;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@MappedSuperclass
 public class Participante extends Pessoa
 {
     private String instituicao;
@@ -35,13 +35,20 @@ public class Participante extends Pessoa
         return this.eventos.contains(evento);
     }
 
-	@Override
-	public String toString() {
-		return "Participante [nome="+ this.getNome() 
-				+", instituicao=" + instituicao 
-				+", email=" + this.getEmail()
-				+", cpf=" + this.getCpf()
-				+ "]";
-	}
-    
+    @Override
+    public String toString()
+    {
+        return "Participante [id="
+                +this.getId()
+                +", nome="+ this.getNome()
+                +", instituicao=" + instituicao 
+                +", email=" + this.getEmail()
+                +", cpf=" + this.getCpf()
+                + "]";
+    }
+
+    public void setInstituicao(String instituicao)
+    {
+        this.instituicao = instituicao;
+    }
 }

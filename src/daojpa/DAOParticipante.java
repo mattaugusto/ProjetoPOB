@@ -17,4 +17,9 @@ public class DAOParticipante extends DAO<Participante>
             return null;
         }
     }
+
+    public Participante localizar(Object id)
+    {
+        return manager.find(Participante.class, id);
+    }
 }

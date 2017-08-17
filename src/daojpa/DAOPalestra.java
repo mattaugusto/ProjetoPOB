@@ -17,4 +17,9 @@ public class DAOPalestra extends DAO<Palestra>
             return null;
         }
     }
+
+    public Palestra localizar(Object id)
+    {
+        return manager.find(Palestra.class, id);
+    }
 }

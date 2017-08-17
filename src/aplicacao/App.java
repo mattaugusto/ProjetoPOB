@@ -18,9 +18,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JComboBox;
 
 public class App {
 
@@ -42,6 +42,18 @@ public class App {
 	private JTextArea textArea_3;
 	private JTextArea textArea_4;
 	private JTextField textField_11;
+	private JTextField textField_12;
+	private JTextField textField_13;
+	private JTextField textField_14;
+	private JTextField textField_15;
+	private JTextField textField_16;
+	private JTextField textField_17;
+	private JTextField textField_18;
+	private JTextField textField_19;
+	private JTextArea textArea_5;
+	private JTextField textField_20;
+	private JTextField textField_21;
+	private JTextField textField_22;
 
 	/**
 	 * Launch the application.
@@ -97,9 +109,10 @@ public class App {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					String nome = textField.getText();
-					String inicio = textField_1.getText();
-					String fim = textField_2.getText();
+					String idString = textField_13.getText().trim();
+					String nome = textField.getText().trim();
+					String inicio = textField_1.getText().trim();
+					String fim = textField_2.getText().trim();
 					
 					if (nome.isEmpty()) {
 						throw new Exception("Preencha o nome do evento");
@@ -113,25 +126,34 @@ public class App {
 						throw new Exception("Preencha a data de fim do evento");
 					}
 					
-					Fachada.cadastrarEvento(nome, inicio, fim);
-					
-					JOptionPane.showMessageDialog(null, "Evento cadastrado com sucesso");
+					if (!idString.isEmpty()) {
+						Integer id = Integer.valueOf(idString);
+						Fachada.atualizarEvento(id, nome, inicio, fim);
+						JOptionPane.showMessageDialog(null, "Evento atualizado com sucesso");
+					} else {
+						Fachada.cadastrarEvento(nome, inicio, fim);
+						JOptionPane.showMessageDialog(null, "Evento cadastrado com sucesso");
+					}
 					textArea.setText(Fachada.listarEventos());
+					textField_13.setText("");
+					textField.setText("");
+					textField_1.setText("");
+					textField_2.setText("");
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
-		btnNewButton.setBounds(90, 123, 49, 25);
+		btnNewButton.setBounds(86, 121, 49, 25);
 		panel.add(btnNewButton);
 		
 		textField = new JTextField();
-		textField.setBounds(76, 30, 114, 19);
+		textField.setBounds(76, 40, 114, 19);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(76, 61, 114, 19);
+		textField_1.setBounds(76, 65, 114, 19);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -141,11 +163,11 @@ public class App {
 		textField_2.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(12, 30, 70, 15);
+		lblNome.setBounds(12, 40, 70, 15);
 		panel.add(lblNome);
 		
 		JLabel lblInicio = new JLabel("Inicio:");
-		lblInicio.setBounds(12, 61, 76, 15);
+		lblInicio.setBounds(12, 65, 76, 15);
 		panel.add(lblInicio);
 		
 		JLabel lblFim = new JLabel("Fim:");
@@ -156,19 +178,20 @@ public class App {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					String nome = textField.getText();
+					String nome = textField.getText().trim();
 					if (nome.isEmpty()) {
 						throw new Exception("Preencha o nome do evento");
 					}
 					Fachada.apagarEvento(nome);
 					textArea.setText(Fachada.listarEventos());	
 					JOptionPane.showMessageDialog(null, "Evento deletado com sucesso");
+					textField.setText("");
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
-		button.setBounds(141, 123, 49, 25);
+		button.setBounds(137, 121, 49, 25);
 		panel.add(button);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -188,6 +211,211 @@ public class App {
 		});
 		btnNewButton_1.setBounds(490, 123, 117, 25);
 		panel.add(btnNewButton_1);
+		
+		textField_13 = new JTextField();
+		textField_13.setBounds(76, 12, 114, 19);
+		panel.add(textField_13);
+		textField_13.setColumns(10);
+		
+		JLabel lblId_1 = new JLabel("Id");
+		lblId_1.setBounds(12, 14, 70, 15);
+		panel.add(lblId_1);
+		
+		textField_21 = new JTextField();
+		textField_21.setBounds(338, 12, 114, 19);
+		panel.add(textField_21);
+		textField_21.setColumns(10);
+		
+		JLabel lblCpf_2 = new JLabel("CPF");
+		lblCpf_2.setBounds(279, 14, 70, 15);
+		panel.add(lblCpf_2);
+		
+		JButton btnNewButton_7 = new JButton("+");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String cpf = textField_21.getText().trim();
+					String evento = textField.getText().trim();
+					if (cpf.isEmpty()) {
+						throw new Exception("Preeencha o CPF");
+					}
+					if (evento.isEmpty()) {
+						throw new Exception("Preeencha o nome do Evento");
+					}
+					Fachada.adicionarParticipanteEvento(evento, cpf);
+					JOptionPane.showMessageDialog(null, "Participante cadastrado no evento");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+		btnNewButton_7.setBounds(350, 34, 98, 25);
+		panel.add(btnNewButton_7);
+		
+		textField_22 = new JTextField();
+		textField_22.setBounds(338, 65, 114, 19);
+		panel.add(textField_22);
+		textField_22.setColumns(10);
+		
+		JLabel lblTituloPalestra = new JLabel("Titulo palestra");
+		lblTituloPalestra.setBounds(208, 67, 112, 15);
+		panel.add(lblTituloPalestra);
+		
+		JButton button_11 = new JButton("+");
+		button_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String titulo = textField_22.getText().trim();
+					String evento = textField.getText().trim();
+					if (titulo.isEmpty()) {
+						throw new Exception("Preeencha o titulo da palestra");
+					}
+					if (evento.isEmpty()) {
+						throw new Exception("Preeencha o nome do Evento");
+					}
+					Fachada.adicionarPalestraEvento(evento, titulo);
+					JOptionPane.showMessageDialog(null, "Palestra cadastrada no evento");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+		button_11.setBounds(350, 89, 98, 25);
+		panel.add(button_11);
+		
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Palestrante", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(89, 69, 114, 19);
+		panel_2.add(textField_7);
+		textField_7.setColumns(10);
+		
+		textField_8 = new JTextField();
+		textField_8.setBounds(89, 43, 114, 19);
+		panel_2.add(textField_8);
+		textField_8.setColumns(10);
+		
+		textField_9 = new JTextField();
+		textField_9.setBounds(89, 100, 114, 19);
+		panel_2.add(textField_9);
+		textField_9.setColumns(10);
+		
+		JButton button_3 = new JButton("+");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String idString = textField_14.getText().trim();
+					String cpf = textField_8.getText().trim();
+					String nome = textField_7.getText().trim();
+					String email = textField_9.getText().trim();
+					String titulacao = textField_12.getText().trim();
+					
+					if (cpf.isEmpty()) {
+						throw new Exception("Preencha o CPF");
+					}
+					
+					if (nome.isEmpty()) {
+						throw new Exception("Preencha o nome");
+					}
+					
+					if (email.isEmpty()) {
+						throw new Exception("Preencha o e-mail");
+					}
+					
+					if (titulacao.isEmpty()) {
+						throw new Exception("Preencha a titulação");
+					}
+					
+					if (!idString.isEmpty()) {
+						Integer id = Integer.valueOf(idString);
+						Fachada.atualizarPalestrante(id, nome, cpf, email, titulacao);
+						JOptionPane.showMessageDialog(null, "Palestrante atualizado com sucesso");
+					} else {
+						Fachada.cadastrarPalestrante(nome, cpf, email, titulacao);
+						JOptionPane.showMessageDialog(null, "Palestrante cadastrado com sucesso");
+					}
+					textArea_2.setText(Fachada.listarPalestrantes());
+					textField_8.setText("");
+					textField_7.setText("");
+					textField_9.setText("");
+					textField_12.setText("");
+					textField_14.setText("");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+		button_3.setBounds(89, 163, 51, 25);
+		panel_2.add(button_3);
+		
+		JButton button_4 = new JButton("-");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String cpf = textField_8.getText().trim();
+					if (cpf.isEmpty()) {
+						throw new Exception("Preencha o CPF");
+					}
+					Fachada.apagarPalestrante(cpf);
+					JOptionPane.showMessageDialog(null, "Palestrante deletado com sucesso");
+					textArea_2.setText(Fachada.listarPalestrantes());
+					textField_8.setText("");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+		button_4.setBounds(149, 163, 51, 25);
+		panel_2.add(button_4);
+		
+		JLabel lblNome_2 = new JLabel("Nome");
+		lblNome_2.setBounds(12, 69, 70, 15);
+		panel_2.add(lblNome_2);
+		
+		JLabel lblCpf_1 = new JLabel("CPF");
+		lblCpf_1.setBounds(12, 43, 70, 15);
+		panel_2.add(lblCpf_1);
+		
+		JLabel lblNewLabel = new JLabel("E-mail");
+		lblNewLabel.setBounds(12, 98, 70, 15);
+		panel_2.add(lblNewLabel);
+		
+		JLabel lblTitulao = new JLabel("Titula\u00E7\u00E3o");
+		lblTitulao.setBounds(12, 134, 70, 15);
+		panel_2.add(lblTitulao);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(12, 197, 595, 230);
+		panel_2.add(scrollPane_2);
+		
+		textArea_2 = new JTextArea();
+		textArea_2.setLineWrap(true);
+		scrollPane_2.setViewportView(textArea_2);
+		
+		JButton btnNewButton_3 = new JButton("(*)");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textArea_2.setText(Fachada.listarPalestrantes());
+			}
+		});
+		btnNewButton_3.setBounds(490, 160, 117, 25);
+		panel_2.add(btnNewButton_3);
+		
+		textField_12 = new JTextField();
+		textField_12.setBounds(89, 131, 114, 19);
+		panel_2.add(textField_12);
+		textField_12.setColumns(10);
+		
+		textField_14 = new JTextField();
+		textField_14.setBounds(89, 12, 114, 19);
+		panel_2.add(textField_14);
+		textField_14.setColumns(10);
+		
+		JLabel lblId_2 = new JLabel("Id");
+		lblId_2.setBounds(12, 14, 70, 15);
+		panel_2.add(lblId_2);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Participante", null, panel_1, null);
@@ -230,6 +458,46 @@ public class App {
 		panel_1.add(lblInstituio);
 		
 		JButton button_1 = new JButton("+");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String idString = textField_20.getText().trim();
+					String cpf = textField_4.getText().trim();
+					String nome = textField_3.getText().trim();
+					String email = textField_5.getText().trim();
+					String instituicao = textField_6.getText().trim();
+					
+					if (cpf.isEmpty()) {
+						throw new Exception("Preencha o CPF");
+					}
+					if (nome.isEmpty()) {
+						throw new Exception("Preencha o nome");
+					}
+					if (email.isEmpty()) {
+						throw new Exception("Preencha o email");
+					}
+					if (instituicao.isEmpty()) {
+						throw new Exception("Preencha a instituição");
+					}
+					if (!idString.isEmpty()) {
+						Integer id = Integer.valueOf(idString);
+						Fachada.atualizarParticipante(id, nome, cpf, email, instituicao);
+						JOptionPane.showMessageDialog(null, "Participante atualizado com sucesso");
+					} else {
+						Fachada.cadastrarParticipante(nome, cpf, email, instituicao);
+						JOptionPane.showMessageDialog(null, "Participante cadastrado com sucesso");
+					}
+					textField_20.setText("");
+					textField_4.setText("");
+					textField_3.setText("");
+					textField_5.setText("");
+					textField_6.setText("");
+					textArea_1.setText(Fachada.listarParticipantes());
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
 		button_1.setBounds(110, 144, 44, 25);
 		panel_1.add(button_1);
 		
@@ -237,9 +505,16 @@ public class App {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					
+					String cpf = textField_4.getText();
+					if (cpf.isEmpty()) {
+						throw new Exception("Preencha o CPF");
+					}
+					Fachada.apagarParticipante(cpf);
+					textField_4.setText("");
+					JOptionPane.showMessageDialog(null, "Participante deletado com sucesso");
+					textArea_1.setText(Fachada.listarParticipantes());
 				} catch (Exception e) {
-					
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
@@ -264,69 +539,14 @@ public class App {
 		textArea_1.setEditable(false);
 		scrollPane_1.setViewportView(textArea_1);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Palestrante", null, panel_2, null);
-		panel_2.setLayout(null);
+		textField_20 = new JTextField();
+		textField_20.setBounds(93, 5, 114, 19);
+		panel_1.add(textField_20);
+		textField_20.setColumns(10);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(89, 38, 114, 19);
-		panel_2.add(textField_7);
-		textField_7.setColumns(10);
-		
-		textField_8 = new JTextField();
-		textField_8.setBounds(89, 69, 114, 19);
-		panel_2.add(textField_8);
-		textField_8.setColumns(10);
-		
-		textField_9 = new JTextField();
-		textField_9.setBounds(89, 100, 114, 19);
-		panel_2.add(textField_9);
-		textField_9.setColumns(10);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(89, 131, 114, 24);
-		panel_2.add(comboBox);
-		
-		JButton button_3 = new JButton("+");
-		button_3.setBounds(89, 163, 51, 25);
-		panel_2.add(button_3);
-		
-		JButton button_4 = new JButton("-");
-		button_4.setBounds(149, 163, 51, 25);
-		panel_2.add(button_4);
-		
-		JLabel lblNome_2 = new JLabel("Nome");
-		lblNome_2.setBounds(12, 38, 70, 15);
-		panel_2.add(lblNome_2);
-		
-		JLabel lblCpf_1 = new JLabel("CPF");
-		lblCpf_1.setBounds(12, 69, 70, 15);
-		panel_2.add(lblCpf_1);
-		
-		JLabel lblNewLabel = new JLabel("E-mail");
-		lblNewLabel.setBounds(12, 98, 70, 15);
-		panel_2.add(lblNewLabel);
-		
-		JLabel lblTitulao = new JLabel("Titula\u00E7\u00E3o");
-		lblTitulao.setBounds(12, 134, 70, 15);
-		panel_2.add(lblTitulao);
-		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(12, 197, 595, 230);
-		panel_2.add(scrollPane_2);
-		
-		textArea_2 = new JTextArea();
-		textArea_2.setLineWrap(true);
-		scrollPane_2.setViewportView(textArea_2);
-		
-		JButton btnNewButton_3 = new JButton("(*)");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				textArea_2.setText(Fachada.listarPalestrantes());
-			}
-		});
-		btnNewButton_3.setBounds(490, 160, 117, 25);
-		panel_2.add(btnNewButton_3);
+		JLabel lblId_3 = new JLabel("Id");
+		lblId_3.setBounds(12, 7, 70, 15);
+		panel_1.add(lblId_3);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Titula\u00E7\u00E3o", null, panel_3, null);
@@ -415,6 +635,141 @@ public class App {
 		JLabel lblId = new JLabel("Id");
 		lblId.setBounds(12, 14, 70, 15);
 		panel_3.add(lblId);
+		
+		JPanel panel_5 = new JPanel();
+		tabbedPane.addTab("Palestra", null, panel_5, null);
+		panel_5.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Id");
+		lblNewLabel_1.setBounds(12, 12, 70, 15);
+		panel_5.add(lblNewLabel_1);
+		
+		textField_15 = new JTextField();
+		textField_15.setBounds(100, 10, 114, 19);
+		panel_5.add(textField_15);
+		textField_15.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Titulo");
+		lblNewLabel_2.setBounds(12, 39, 70, 15);
+		panel_5.add(lblNewLabel_2);
+		
+		textField_16 = new JTextField();
+		textField_16.setBounds(100, 37, 114, 19);
+		panel_5.add(textField_16);
+		textField_16.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Descrição");
+		lblNewLabel_3.setBounds(12, 66, 70, 15);
+		panel_5.add(lblNewLabel_3);
+		
+		textField_17 = new JTextField();
+		textField_17.setBounds(100, 64, 114, 19);
+		panel_5.add(textField_17);
+		textField_17.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("Duração");
+		lblNewLabel_4.setBounds(12, 93, 70, 15);
+		panel_5.add(lblNewLabel_4);
+		
+		textField_18 = new JTextField();
+		textField_18.setBounds(100, 91, 114, 19);
+		panel_5.add(textField_18);
+		textField_18.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Cpf");
+		lblNewLabel_5.setBounds(12, 120, 70, 15);
+		panel_5.add(lblNewLabel_5);
+		
+		textField_19 = new JTextField();
+		textField_19.setBounds(100, 118, 114, 19);
+		panel_5.add(textField_19);
+		textField_19.setColumns(10);
+		
+		JButton button_8 = new JButton("+");
+		button_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String idString = textField_15.getText();
+					String titulo = textField_16.getText();
+					String desc = textField_17.getText();
+					String duracao = textField_18.getText();
+					String cpf = textField_19.getText();
+					
+					if (titulo.isEmpty()) {
+						throw new Exception("Preencha o titulo");
+					}
+					
+					if (desc.isEmpty()) {
+						throw new Exception("Preencha a descrição");
+					}
+					
+					if (duracao.isEmpty()) {
+						throw new Exception("Preencha a duração");
+					}
+					
+					if (cpf.isEmpty()) {
+						throw new Exception("Preencha o CPF");
+					}
+					
+					if (!idString.isEmpty()) {
+						Integer id = Integer.valueOf(idString);
+						Fachada.atualizarPalestra(id, titulo, desc, duracao, cpf);
+						JOptionPane.showMessageDialog(null, "Palestra atualizada com sucesso");
+					} else {
+						Fachada.cadastrarPalestra(titulo, desc, duracao, cpf);
+						JOptionPane.showMessageDialog(null, "Palestra cadastrada com sucesso");
+					}
+					textArea_5.setText(Fachada.listarPalestras());
+					textField_15.setText("");
+					textField_16.setText("");
+					textField_17.setText("");
+					textField_18.setText("");
+					textField_19.setText("");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+		button_8.setBounds(100, 142, 54, 25);
+		panel_5.add(button_8);
+		
+		JButton button_9 = new JButton("-");
+		button_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String titulo = textField_16.getText();
+					if (titulo.isEmpty()) {
+						throw new Exception("Preencha o titulo");
+					}
+					Fachada.apagarPalestra(titulo);
+					textField_16.setText("");
+					textArea_5.setText(Fachada.listarPalestras());
+					JOptionPane.showMessageDialog(null, "Palestra deletada com sucesso");
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+		button_9.setBounds(156, 142, 54, 25);
+		panel_5.add(button_9);
+		
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(12, 171, 595, 256);
+		panel_5.add(scrollPane_5);
+		
+		textArea_5 = new JTextArea();
+		textArea_5.setEditable(false);
+		textArea_5.setLineWrap(true);
+		scrollPane_5.setViewportView(textArea_5);
+		
+		JButton button_10 = new JButton("(*)");
+		button_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textArea_5.setText(Fachada.listarPalestras());
+			}
+		});
+		button_10.setBounds(490, 142, 117, 25);
+		panel_5.add(button_10);
 		
 		JPanel panel_4 = new JPanel();
 		tabbedPane.addTab("Consultas", null, panel_4, null);

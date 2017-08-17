@@ -28,4 +28,9 @@ public class DAOEvento extends DAO<Evento>
         		"FROM EVENTO E");
         return q.getResultList();
     }
+
+    public Evento localizar(Object id)
+    {
+        return manager.find(Evento.class, id);
+    }
 }

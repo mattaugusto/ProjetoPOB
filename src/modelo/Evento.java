@@ -64,5 +64,29 @@ public class Evento
     public String toString() {
         return "Evento [id=" + id + ", nome=" + nome + ", inicio=" + inicio + ", fim=" + fim + "]";
     }
-    
+
+    public void setNome(String nome)
+    {
+        this.nome = nome;
+    }
+
+    public void setInicio(Date inicio)
+    {
+        this.inicio = inicio;
+    }
+
+    public void setFim(Date fim)
+    {
+        this.fim = fim;
+    }
+
+	public int getId() {
+		return id;
+	}
+
+	public List<Palestra> getPalestras() {
+		return palestras;
+	}
+	
+	
 }

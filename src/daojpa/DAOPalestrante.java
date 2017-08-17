@@ -53,4 +53,9 @@ public class DAOPalestrante extends DAO<Palestrante>
         q.setParameter("x", titulo);
         return q.getResultList();
     }
+
+    public Palestrante localizar(Object id)
+    {
+        return manager.find(Palestrante.class, id);
+    }
 }

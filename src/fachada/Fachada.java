@@ -189,6 +189,9 @@ public class Fachada
         if (p == null) {
             throw new Exception("Palestra năo cadastrada! " + titulo);
         }
+        if (e.getPalestras().contains(p)) {
+        	throw new Exception("Palestra já cadastrada no evento! " + titulo);
+        }
         e.adicionarPalestra(p);
         daoevento.atualizar(e);
         DAO.efetivar();
@@ -406,5 +409,142 @@ public class Fachada
     public static String consulta6()
     {
     	return null;
+    }
+    
+    public static void atualizarEvento(
+            Integer id,
+            String nome,
+            String inicio,
+            String fim) throws Exception
+    {
+        DAO.iniciar();
+        Evento evento = daoevento.localizar(id);
+        if (evento == null) {
+            throw new Exception("Evento nao cadastrada");
+        }
+        
+        Evento e = daoevento.localizarPeloNome(nome);
+        if (e != null && e.getId() != evento.getId()) {
+        	throw new Exception("Nome para evento n disponivel");
+        }
+        SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
+        Date inicio_data = sdf.parse(inicio);
+        Date fim_data = sdf.parse(fim);
+        evento.setFim(fim_data);
+        evento.setInicio(inicio_data);
+        evento.setNome(nome);
+        daoevento.atualizar(evento);
+        DAO.efetivar();
+    }
+    
+    public static Palestrante atualizarPalestrante(
+    		Integer id,
+            String nome,
+            String cpf,
+            String email,
+            String tipoTitulacao) throws Exception
+    {
+        DAO.iniciar();
+        Palestrante palestrante = daopalestrante.localizar(id);
+        if (palestrante == null) {
+        	throw new Exception("Palestrante nao cadastrado");
+        }
+        
+        Palestrante p = daopalestrante.localizarPeloCPF(cpf);
+        if (p!= null && p.getId() != id) {
+            throw new Exception("CPF já cadastrado!");
+        }
+        if (nome == null) {
+            throw new Exception("Nome vazio!");
+        }
+        if (cpf == null) {
+            throw new Exception("CPF vazio!");
+        }
+        if (email == null) {
+            throw new Exception("Email vazio!");
+        }
+        if (!p.getEmail().equals(email) && !daopalestrante.isEmailDisponivel(email)) {
+            throw new Exception("E-mail já cadastrado!");
+        }
+        if (tipoTitulacao.isEmpty()) {
+            throw new Exception("Titulaçăo invalida!");
+        }
+        Titulacao t = daotitulacao.localizarPeloTitulo(tipoTitulacao);
+        if (t == null) {
+            throw new Exception("Titulaçăo năo cadastrada");
+        }
+        p.setNome(nome);
+        p.setCpf(cpf);
+        p.setEmail(email);
+        p.setTitulacao(t);
+        daopalestrante.atualizar(p);
+        DAO.efetivar();
+        return p;
+    }
+
+    public static Palestra atualizarPalestra(
+    		Integer id,
+            String titulo,
+            String descricao,
+            String duracao,
+            String cpf) throws Exception
+    {
+        DAO.iniciar();
+        Palestra palestra = daopalestra.localizar(id);
+        if (palestra == null) {
+        	throw new Exception("Palestra nao cadastrada");
+        }
+        Palestra p = daopalestra.localizarPeloTitulo(titulo);
+        if (p!= null && p.getId() != id) {
+            throw new Exception("Palestra já cadastrada");
+        }
+        Palestrante palestrante = daopalestrante.localizarPeloCPF(cpf);
+        if (palestrante == null) {
+            throw new Exception("Palestrante năo cadastrado");
+        }
+        p.setDescricao(descricao);
+        p.setDuracao(duracao);
+        p.setTitulo(titulo);
+        p.setPalestrante(palestrante);
+        daopalestra.persistir(p);
+        DAO.efetivar();
+        return p;
+    }
+    
+    public static Participante atualizarParticipante(
+    		Integer id,
+            String nome,
+            String cpf,
+            String email,
+            String instituicao) throws Exception
+    {
+        DAO.iniciar();
+        Participante participante = daoparticipante.localizar(id);
+        if (participante == null) {
+        	throw new Exception("Participante nao cadastrado");
+        }
+        Participante p = daoparticipante.localizarPeloCPF(cpf);
+        System.out.println(p);
+        if (p!= null && p.getId() != id) {
+            throw new Exception("CPF já cadastrado!");
+        }
+        if (nome == null) {
+            throw new Exception("Nome vazio!");
+        }
+        if (cpf == null) {
+            throw new Exception("CPF vazio!");
+        }
+        if (email == null) {
+            throw new Exception("Email vazio!");
+        }
+        if (instituicao == null) {
+            throw new Exception("Instituicao vazio!");
+        }
+        p.setCpf(cpf);
+        p.setEmail(email);
+        p.setNome(nome);
+        daoparticipante.atualizar(p);
+        DAO.efetivar();
+        return p;
     }
 }

@@ -55,11 +55,31 @@ public class Palestra
         return this.duracao;
     }
 
-	@Override
-	public String toString() {
-		return "Palestra [id=" + id + ", titulo=" + titulo + ", descricao="
-				+ descricao + ", duracao=" + duracao + ", palestrante="
-				+ palestrante + "]";
+    @Override
+    public String toString() {
+        return "Palestra [id=" + id + ", titulo=" + titulo + ", descricao="
+                + descricao + ", duracao=" + duracao + ", palestrante="
+                + palestrante + "]";
+    }
+
+    public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
-    
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public void setDuracao(String duracao) {
+		this.duracao = duracao;
+	}
+
+	public void setPalestrante(Palestrante palestrante) {
+		this.palestrante = palestrante;
+	}
+
+	public int getId()
+    {
+        return this.id;
+    }
 }

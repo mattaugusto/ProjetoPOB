@@ -8,7 +8,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Pessoa
 {
     @Id
@@ -45,5 +45,25 @@ public abstract class Pessoa
     public String getEmail()
     {
         return this.email;
+    }
+
+    public int getId()
+    {
+        return this.id;
+    }
+
+    public void setNome(String nome)
+    {
+        this.nome = nome;
+    }
+
+    public void setCpf(String cpf)
+    {
+        this.cpf = cpf;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
     }
 }

@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@MappedSuperclass
 public class Palestrante extends Pessoa
 {
     @ManyToOne
@@ -35,8 +35,9 @@ public class Palestrante extends Pessoa
     @Override
     public String toString()
     {
-        return "Palestrante [nome="+ this.getNome()
-                +", tipoTitulacao=" + tipoTitulacao
+        return "Palestrante [id=" + this.getId()
+                + "nome="+ this.getNome()
+                +", tipoTitulacao=" + (tipoTitulacao !=null ? tipoTitulacao.getTitulo() :"Sem Titulação")
                 +", email=" + this.getEmail()
                 +", cpf=" + this.getCpf()
                 + "]";
