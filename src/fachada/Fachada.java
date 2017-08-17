@@ -1,6 +1,6 @@
 /**
  * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto MaranhÄƒo Ayres
  * Persistencia de Objetos
  * Alunos: Joel e Matheus
  *
@@ -50,7 +50,7 @@ public class Fachada
         DAO.iniciar();
         Participante p = daoparticipante.localizarPeloCPF(cpf);
         if (p!= null) {
-            throw new Exception("CPF já cadastrado!");
+            throw new Exception("CPF jÃ¡ cadastrado!");
         }
         if (nome == null) {
             throw new Exception("Nome vazio!");
@@ -79,7 +79,7 @@ public class Fachada
         DAO.iniciar();
         Palestrante p = daopalestrante.localizarPeloCPF(cpf);
         if (p!= null) {
-            throw new Exception("CPF já cadastrado!");
+            throw new Exception("CPF jÃ¡ cadastrado!");
         }
         if (nome == null) {
             throw new Exception("Nome vazio!");
@@ -91,14 +91,14 @@ public class Fachada
             throw new Exception("Email vazio!");
         }
         if (!daopalestrante.isEmailDisponivel(email)) {
-            throw new Exception("E-mail já cadastrado!");
+            throw new Exception("E-mail jÃ¡ cadastrado!");
         }
         if (tipoTitulacao.isEmpty()) {
-            throw new Exception("Titulação invalida!");
+            throw new Exception("TitulaÃ§Äƒo invalida!");
         }
         Titulacao t = daotitulacao.localizarPeloTitulo(tipoTitulacao);
         if (t == null) {
-            throw new Exception("Titulação não cadastrada");
+            throw new Exception("TitulaÃ§Äƒo nÄƒo cadastrada");
         }
         p = new Palestrante(nome, cpf, email, t);
         daopalestrante.persistir(p);
@@ -111,7 +111,7 @@ public class Fachada
         DAO.iniciar();
         Titulacao t = daotitulacao.localizarPeloTitulo(titulo);
         if (t!= null) {
-            throw new Exception("Titulação já cadastrada!");
+            throw new Exception("TitulaÃ§Äƒo jÃ¡ cadastrada!");
         }
         t = new Titulacao(titulo);
         daotitulacao.persistir(t);
@@ -128,11 +128,11 @@ public class Fachada
         DAO.iniciar();
         Palestra p = daopalestra.localizarPeloTitulo(titulo);
         if (p!= null) {
-            throw new Exception("Palestra já cadastrada");
+            throw new Exception("Palestra jÃ¡ cadastrada");
         }
         Palestrante palestrante = daopalestrante.localizarPeloCPF(cpf);
         if (palestrante == null) {
-            throw new Exception("Palestrante não cadastrado");
+            throw new Exception("Palestrante nÄƒo cadastrado");
         }
         p = new Palestra(titulo, descricao, duracao, palestrante);
         daopalestra.persistir(p);
@@ -148,7 +148,7 @@ public class Fachada
         DAO.iniciar();
         Evento e = daoevento.localizarPeloNome(nome);
         if (e!= null) {
-            throw new Exception("Evento já cadastrado");
+            throw new Exception("Evento jÃ¡ cadastrado");
         }
         SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
         Date inicio_data = sdf.parse(inicio);
@@ -164,14 +164,14 @@ public class Fachada
         DAO.iniciar();
         Evento e = daoevento.localizarPeloNome(evento);
         if (e == null) {
-            throw new Exception("Evento não cadastrado! " + evento);
+            throw new Exception("Evento nÄƒo cadastrado! " + evento);
         }
         Participante p = daoparticipante.localizarPeloCPF(cpf);
         if (p == null) {
-            throw new Exception("Participante não cadastrado! " + cpf);
+            throw new Exception("Participante nÄƒo cadastrado! " + cpf);
         }
         if (p.taCadastroEvento(e)) {
-            throw new Exception("Participante já cadastrado no evento!");
+            throw new Exception("Participante jÃ¡ cadastrado no evento!");
         }
         e.adicionarParticipante(p);
         daoevento.atualizar(e);
@@ -183,11 +183,11 @@ public class Fachada
         DAO.iniciar();
         Evento e = daoevento.localizarPeloNome(evento);
         if (e == null) {
-            throw new Exception("Evento não cadastrado! " + evento);
+            throw new Exception("Evento nÄƒo cadastrado! " + evento);
         }
         Palestra p = daopalestra.localizarPeloTitulo(titulo);
         if (p == null) {
-            throw new Exception("Palestra não cadastrada! " + titulo);
+            throw new Exception("Palestra nÄƒo cadastrada! " + titulo);
         }
         e.adicionarPalestra(p);
         daoevento.atualizar(e);
@@ -199,7 +199,7 @@ public class Fachada
         DAO.iniciar();
         Participante p = daoparticipante.localizarPeloCPF(cpf);
         if (p == null) {
-            throw new Exception("Participante não cadastrado");
+            throw new Exception("Participante nÄƒo cadastrado");
         }
         daoparticipante.apagar(p);
         DAO.efetivar();
@@ -210,7 +210,7 @@ public class Fachada
         DAO.iniciar();
         Evento e = daoevento.localizarPeloNome(nome);
         if (e == null) {
-            throw new Exception("Evento não cadastrado");
+            throw new Exception("Evento nÄƒo cadastrado");
         }
         daoevento.apagar(e);
         DAO.efetivar();
@@ -221,7 +221,7 @@ public class Fachada
         DAO.iniciar();
         Palestrante p = daopalestrante.localizarPeloCPF(cpf);
         if (p == null) {
-            throw new Exception("Palestrante não cadastrado");
+            throw new Exception("Palestrante nÄƒo cadastrado");
         }
         daopalestrante.apagar(p);
         DAO.efetivar();
@@ -232,7 +232,7 @@ public class Fachada
         DAO.iniciar();
         Palestra p = daopalestra.localizarPeloTitulo(titulo);
         if (p == null) {
-            throw new Exception("Palestra não cadastrada");
+            throw new Exception("Palestra nÄƒo cadastrada");
         }
         daopalestra.apagar(p);
         DAO.efetivar();
@@ -243,7 +243,7 @@ public class Fachada
         DAO.iniciar();
         Titulacao t = daotitulacao.localizarPeloTitulo(titulo);
         if (t == null) {
-            throw new Exception("Titulação não cadastrada");
+            throw new Exception("TitulaÃ§Äƒo nÄƒo cadastrada");
         }
         daotitulacao.apagar(t);
         DAO.efetivar();
@@ -254,14 +254,26 @@ public class Fachada
         DAO.iniciar();
         Palestrante p = daopalestrante.localizarPeloCPF(cpf);
         if (p == null) {
-            throw new Exception("Palestrante não cadastrado");
+            throw new Exception("Palestrante nÄƒo cadastrado");
         }
         Titulacao t = daotitulacao.localizarPeloTitulo(titulo);
         if (t == null) {
-            throw new Exception("Titulação não cadastrada");
+            throw new Exception("TitulaÃ§Äƒo nÄƒo cadastrada");
         }
         p.setTitulacao(t);
         daopalestrante.atualizar(p);
+        DAO.efetivar();
+    }
+    
+    public static void atualizarTitulacao(Integer id, String titulo) throws Exception
+    {
+        DAO.iniciar();
+        Titulacao titulacao = daotitulacao.localizar(id);
+        if (titulacao == null) {
+            throw new Exception("Titulacao nao cadastrada");
+        }
+        titulacao.setTitulo(titulo);
+        daotitulacao.atualizar(titulacao);
         DAO.efetivar();
     }
 
@@ -300,6 +312,32 @@ public class Fachada
         }
         for (Participante participante : participantes) {
             texto += "\n " + participante;
+        }
+        return texto;
+    }
+
+    public static String listarPalestrantes()
+    {
+        List<Palestrante> palestrantes = daopalestrante.listar();
+        String texto = "Listagem de palestrantes: \n";
+        if (palestrantes.isEmpty()) {
+            return texto += "nenhum palestrante cadastrado";
+        }
+        for (Palestrante palestrante : palestrantes) {
+            texto += "\n " + palestrante;
+        }
+        return texto;
+    }
+    
+    public static String listarTitulacoes()
+    {
+        List<Titulacao> titulacoes = daotitulacao.listar();
+        String texto = "Listagem de titulacoes: \n";
+        if (titulacoes.isEmpty()) {
+            return texto += "nenhuma titulacao cadastrado";
+        }
+        for (Titulacao titulacao : titulacoes) {
+            texto += "\n " + titulacao;
         }
         return texto;
     }
@@ -343,12 +381,16 @@ public class Fachada
         return texto;
     }
     
-    public static String consulta4()
+    public static String consulta4(String titulo) throws Exception
     {
-        List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesPorTitulo("Mestrado");
+    	Titulacao titulacao = daotitulacao.localizarPeloTitulo(titulo);
+    	if (titulacao == null) {
+    		throw new Exception("TitulaÃ§Ã£o nÃ£o encontrada");
+    	}
+        List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesPorTitulo(titulo);
         String texto = "Listagem de palestrantes por titulo: \n";
         if (palestrantes.isEmpty()) {
-            return texto += "nenhum palestrante cadastrado com titulo de mestrado";
+            return texto += "nenhum palestrante cadastrado com titulo de " + titulo;
         }
         for (Palestrante palestrante : palestrantes) {
             texto += "\n " + palestrante;

@@ -11,7 +11,7 @@ public class TesteConsulta
 //            System.out.println(Fachada.consulta1());
 //            System.out.println(Fachada.consulta2());
 //            System.out.println(Fachada.consulta3());
-            System.out.println(Fachada.consulta4());
+            System.out.println(Fachada.consulta4("Mestrado"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

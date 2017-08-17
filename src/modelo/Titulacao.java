@@ -44,8 +44,14 @@ public class Titulacao
         }
     }
 
-	@Override
-	public String toString() {
-		return  titulo;
-	}
+    @Override
+    public String toString() {
+        return "Titulacao [id=" + id + ", titulo=" + titulo + "]";
+    }
+    
+    public void setTitulo(String titulo)
+    {
+        this.titulo = titulo;
+    }
+
 }

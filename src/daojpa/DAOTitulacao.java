@@ -17,4 +17,9 @@ public class DAOTitulacao extends DAO<Titulacao>
             return null;
         }
     }
+
+    public Titulacao localizar(Object id)
+    {
+        return manager.find(Titulacao.class, id);
+    }
 }
