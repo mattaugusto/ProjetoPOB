@@ -73,10 +73,10 @@ public class TesteInsercao
 
     public static void cadastrarTitulacoes() throws Exception
     {
-        String[] titualcoes = new String[] {"Graduação", "Mestrado", "Doutorado", "Outra"};
+        String[] titulacoes = new String[] {"Graduação", "Mestrado", "Doutorado", "Outra"};
 
-        for (String tituacao : titualcoes) {
-            Fachada.cadastrarTitulacao(tituacao);
+        for (String titulacao : titulacoes) {
+            Fachada.cadastrarTitulacao(titulacao);
         }
     }
 
@@ -112,6 +112,6 @@ public class TesteInsercao
             System.out.println(e.getMessage());
         }
         Fachada.finalizar();
-        System.out.println("\nFim do teste insercao");
+        System.out.println("\nFim do teste de insercao");
     }
 }

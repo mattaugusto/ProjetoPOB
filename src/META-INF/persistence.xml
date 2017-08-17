@@ -4,7 +4,7 @@
     <persistence-unit name="evento" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-<!--
+
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/evento" />
@@ -15,8 +15,8 @@
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>
             <property name="eclipselink.logging.level" value="off"/>
         </properties>
- -->
 
+<!--
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url"  value="jdbc:mysql://127.0.0.1:3306/evento?useSSL=false" />
@@ -27,7 +27,7 @@
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>
             <property name="eclipselink.logging.level" value="off"/>
         </properties>
-
+ -->
 
     </persistence-unit>
 </persistence>

@@ -11,10 +11,12 @@ public class TesteListagem
             System.out.println(Fachada.listarEventos());
             System.out.println(Fachada.listarPalestras());
             System.out.println(Fachada.listarParticipantes());
+            System.out.println(Fachada.listarPalestrantes());
+            System.out.println(Fachada.listarTitulacoes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         Fachada.finalizar();
-        System.out.println("\nFim do teste listagem");
+        System.out.println("\nFim do teste de listagem");
     }
 }

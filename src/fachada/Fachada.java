@@ -288,9 +288,9 @@ public class Fachada
             return texto += "nenhum evento cadastrado";
         }
         for (Evento evento : eventos) {
-            texto += "\n" + evento;
+            texto += "\n   " + evento;
         }
-        return texto;
+        return texto += "\n";
     }
 
     public static String listarPalestras()
@@ -301,9 +301,9 @@ public class Fachada
             return texto += "nenhuma palestra cadastrada";
         }
         for (Palestra palestra : palestras) {
-            texto += "\n " + palestra;
+            texto += "\n   " + palestra;
         }
-        return texto;
+        return texto += "\n";
     }
 
     public static String listarParticipantes()
@@ -314,9 +314,9 @@ public class Fachada
             return texto += "nenhum participante cadastrado";
         }
         for (Participante participante : participantes) {
-            texto += "\n " + participante;
+            texto += "\n   " + participante;
         }
-        return texto;
+        return texto += "\n";
     }
 
     public static String listarPalestrantes()
@@ -327,9 +327,9 @@ public class Fachada
             return texto += "nenhum palestrante cadastrado";
         }
         for (Palestrante palestrante : palestrantes) {
-            texto += "\n " + palestrante;
+            texto += "\n   " + palestrante;
         }
-        return texto;
+        return texto += "\n";
     }
     
     public static String listarTitulacoes()
@@ -340,51 +340,51 @@ public class Fachada
             return texto += "nenhuma titulacao cadastrado";
         }
         for (Titulacao titulacao : titulacoes) {
-            texto += "\n " + titulacao;
+            texto += "\n   " + titulacao;
         }
-        return texto;
+        return texto += "\n";
     }
 
-    public static String consulta1()
+    public static String consulta1() // Palestrantes sem Palestras
     {
         List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesSemPalestras();
         String texto = "Listagem de palestrantes sem palestras: \n";
         if (palestrantes.isEmpty()) {
-            return texto += "nenhum palestrante cadastrado sem palestra";
+            return texto += "\n   nenhum palestrante cadastrado sem palestra\n";
         }
         for (Palestrante palestrante : palestrantes) {
-            texto += "\n " + palestrante;
+            texto += "\n   " + palestrante;
         }
-        return texto;
+        return texto += "\n";
     }
 
-    public static String consulta2()
+    public static String consulta2() // Palestrantes sem Titulacao
     {
         List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesSemTitulo();
         String texto = "Listagem de palestrantes sem titulo: \n";
         if (palestrantes.isEmpty()) {
-            return texto += "nenhum palestrante cadastrado sem titulo";
+            return texto += "\n   nenhum palestrante cadastrado sem titulo\n";
         }
         for (Palestrante palestrante : palestrantes) {
-            texto += "\n " + palestrante;
+            texto += "\n   " + palestrante;
         }
-        return texto;
-    }
+        return texto += "\n";
+    } 
     
-    public static String consulta3()
+    public static String consulta3() // Total de Participantes por Evento
     {
         List<Object[]> totalPorEvento = daoevento.totalParticipantesEvento();
         String texto = "Listagem de total de participantes no evento: \n";
         if (totalPorEvento.isEmpty()) {
-            return texto += "nenhum total";
+            return texto += "\n   nenhum total\n";
         }
         for (Object[] obj : totalPorEvento) {
-        	texto += "\n " + obj[0]+" "+obj[1];
+        	texto += "\n   " + obj[0]+" "+obj[1];
         }
-        return texto;
+        return texto += "\n";
     }
     
-    public static String consulta4(String titulo) throws Exception
+    public static String consulta4(String titulo) throws Exception // Palestrante por Titulacao
     {
     	Titulacao titulacao = daotitulacao.localizarPeloTitulo(titulo);
     	if (titulacao == null) {
@@ -393,25 +393,25 @@ public class Fachada
         List<Palestrante> palestrantes = daopalestrante.consultarPalestrantesPorTitulo(titulo);
         String texto = "Listagem de palestrantes por titulo: \n";
         if (palestrantes.isEmpty()) {
-            return texto += "nenhum palestrante cadastrado com titulo de " + titulo;
+            return texto += "\n   nenhum palestrante cadastrado com titulo de " + titulo + "\n";
         }
         for (Palestrante palestrante : palestrantes) {
-            texto += "\n " + palestrante;
+            texto += "\n   " + palestrante;
         }
-        return texto;
+        return texto += "\n";
     }
 
-    public static String consulta5()
+    public static String consulta5() // Total de Titulacao por Evento
     {
         List<Object[]> totalPorEvento = daoevento.totalEventoTitulacao();
         String texto = "Listagem total de titulacao por evento: \n";
         if (totalPorEvento.isEmpty()) {
-            return texto += "nenhum total";
+            return texto += "\n   nenhum total\n";
         }
         for (Object[] obj : totalPorEvento) {
-        	texto += "\n " + obj[0]+" "+obj[1]+" "+obj[2];
+        	texto += "\n   " + obj[0]+" "+obj[1]+" "+obj[2];
         }
-        return texto;
+        return texto += "\n";
     }
 
     public static String consulta6()

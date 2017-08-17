@@ -36,7 +36,7 @@ public class Palestrante extends Pessoa
     public String toString()
     {
         return "Palestrante [id=" + this.getId()
-                + "nome="+ this.getNome()
+                + ", nome="+ this.getNome()
                 +", tipoTitulacao=" + (tipoTitulacao !=null ? tipoTitulacao.getTitulo() :"Sem Titulação")
                 +", email=" + this.getEmail()
                 +", cpf=" + this.getCpf()

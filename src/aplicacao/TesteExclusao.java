@@ -8,7 +8,7 @@ public class TesteExclusao
     {
         Fachada.inicializar();
         try {
-//            Fachada.apagarParticipante("321654");
+//        	  Fachada.apagarParticipante("321654");
 //            Fachada.apagarEvento("EXPOTEC");
 //            Fachada.apagarPalestra("Desenvolvimento PHP");
 //            Fachada.apagarTitulacao("Doutorado");
