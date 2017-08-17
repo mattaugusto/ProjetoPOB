@@ -19,18 +19,31 @@ public class DAOEvento extends DAO<Evento>
             return null;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
 	public List<Object[]>  totalParticipantesEvento()
     {
         Query q = manager.createNativeQuery("select NOME, (SELECT count(1) " +
-        		"FROM EVENTO_PARTICIPANTE EP WHERE EP.EVENTOS_ID = E.ID) total " +
-        		"FROM EVENTO E");
+                "FROM EVENTO_PARTICIPANTE EP WHERE EP.EVENTOS_ID = E.ID) total " +
+                "FROM EVENTO E");
         return q.getResultList();
     }
 
     public Evento localizar(Object id)
     {
         return manager.find(Evento.class, id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Object[]> totalEventoTitulacao()
+    {
+        String sql = "select ep.nome, t.titulo, count(p.id) as total " +
+               " from Palestra p" +
+               " inner join p.eventos ep" +
+               " inner join p.palestrante pt" +
+               " inner join pt.tipoTitulacao t" +
+               " group by ep.nome, t.titulo";
+        Query q = manager.createQuery(sql);
+        return q.getResultList();
     }
 }

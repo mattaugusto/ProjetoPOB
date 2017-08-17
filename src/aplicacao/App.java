@@ -817,6 +817,11 @@ public class App {
 		panel_4.add(btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("Consulta 5");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textArea_4.setText(Fachada.consulta5());
+			}
+		});
 		btnNewButton_5.setBounds(217, 49, 117, 25);
 		panel_4.add(btnNewButton_5);
 		

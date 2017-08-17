@@ -400,17 +400,25 @@ public class Fachada
         }
         return texto;
     }
-    
+
     public static String consulta5()
     {
-    	return null;
+        List<Object[]> totalPorEvento = daoevento.totalEventoTitulacao();
+        String texto = "Listagem total de titulacao por evento: \n";
+        if (totalPorEvento.isEmpty()) {
+            return texto += "nenhum total";
+        }
+        for (Object[] obj : totalPorEvento) {
+        	texto += "\n " + obj[0]+" "+obj[1]+" "+obj[2];
+        }
+        return texto;
     }
-    
+
     public static String consulta6()
     {
     	return null;
     }
-    
+
     public static void atualizarEvento(
             Integer id,
             String nome,
@@ -436,7 +444,7 @@ public class Fachada
         daoevento.atualizar(evento);
         DAO.efetivar();
     }
-    
+
     public static Palestrante atualizarPalestrante(
     		Integer id,
             String nome,
@@ -510,7 +518,7 @@ public class Fachada
         DAO.efetivar();
         return p;
     }
-    
+
     public static Participante atualizarParticipante(
     		Integer id,
             String nome,
